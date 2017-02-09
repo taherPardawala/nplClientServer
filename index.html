@@ -1,0 +1,27 @@
+<html>
+<head><title>Client</title></head>
+<body>
+<input id="textbox" type='text' placeholder="Enter your text">
+<button id="send">Send Text</button>
+<ul id="addRev">
+</ul>
+<script src="https://code.jquery.com/jquery-3.1.1.js"			  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	var socket = io();
+	var sendbtn = $("#send");
+	var textbox = $("#textbox");
+	var list = $('#addRev');
+	$("#send").on('click' , function(){
+		socket.emit('text' , textbox.val());
+	});
+	
+	socket.on('revstring' , function(data){
+		console.log(data);
+		list.append('<li>' + data + '</li>');
+	});	
+	
+</script>
+</body>
+</html>
